@@ -7,14 +7,15 @@ import UserRoutes from "./kambaz/users/routes.js";
 import "dotenv/config";
 import session from "express-session";
 import CourseRoutes from "./kambaz/courses/routes.js";
+import AssignmentRoutes from "./kambaz/courses/assignments/routes.js";
 
 const app = express();
 
 app.use(
- cors({
-   credentials: true,
-   origin: process.env.CLIENT_URL || "http://localhost:3000",
- })
+  cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
+  })
 );
 
 const sessionOptions = {
@@ -33,11 +34,11 @@ if (process.env.SERVER_ENV !== "development") {
 }
 
 app.use(session(sessionOptions));
-
 app.use(express.json());
 
 UserRoutes(app, db);
 CourseRoutes(app, db);
+AssignmentRoutes(app, db);
 Lab5(app);
 Hello(app);
 
